@@ -4,6 +4,8 @@
 <head>
     <title>Pop-up Section Example</title>
     <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
@@ -14,9 +16,9 @@
 
         <div id="popup-section" class="hidden max-icon1">
             <div id="popup-navs">
-                <button id="close-button">Close</button>
-                <button id="minimize-button">Minimize</button>
-                <button id="maximize-button">Maximize</button>
+                <button id="close-button"><box-icon name='window-close' ></box-icon></button>
+                <button id="minimize-button"><box-icon name='minus'></box-icon></button>
+                <button id="maximize-button"><box-icon name='window'></box-icon></button>
             </div>
             <div class="table-wrapper">
                 <table id="my_table">
@@ -112,6 +114,8 @@
     </div>
 
     <script src="popup.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
 </body>
 
 </html>
