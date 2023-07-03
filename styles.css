@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+.container {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
+  
+  #my_table {
+    margin: 50px 0 ;
+    width: 100%;
+  }
+  
+  #my_table th,
+  #my_table td {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  #my_table th {
+    background-color: #f8f8f8; /* Optional: set background color for the header */
+  }
+  
+  .table-wrapper {
+    max-height: calc(100% - 30px); /* Adjust the height to accommodate the table header */
+    overflow-y: auto;
+  }
+  
+
+
+#popup-navs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    background-color: blue;
+}
+
+#popup-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: navy;
+    color: white;
+    padding: 20px;
+    border: none;
+    cursor: pointer;
+    /* Style the button as desired */
+}
+
+#popup-section {
+    background-color: pink;
+    position: absolute;
+    top: 50vh;
+    left: 50%;
+    height: 80vh;
+    width: 80vw;
+    overflow-y: scroll;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    /* display: none; */
+    /* Additional styles for the pop-up section */
+}
+
+.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* .table-wrap {
+    max-width: 800px;
+    margin: 80px auto;
+    overflow-x: auto;
+}
+
+table,
+td,
+th {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+th,
+td {
+    padding: 15px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+table tbody tr:nth-child(odd) {
+    background: rgb(226, 226, 226);
+} */
+
+.box-wrap {
+    padding: 0px 16px;
+}
+
+/*# sourceMappingURL=main.css.map */
+.column_name {
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* .sortIcon {
+    color = blue;
+    /* color: linear-gradient(to top, green, red); */
