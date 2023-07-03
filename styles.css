@@ -9,28 +9,37 @@
     max-height: 300px; /* Adjust the height as needed */
     overflow-y: auto;
   }
-  
-  #my_table {
-    margin: 50px 0 ;
-    width: 100%;
-  }
-  
-  #my_table th,
-  #my_table td {
-    padding: 15px;
-    text-align: left;
-  }
-  
-  #my_table th {
-    background-color: #f8f8f8; /* Optional: set background color for the header */
-  }
-  
-  .table-wrapper {
-    max-height: calc(100% - 30px); /* Adjust the height to accommodate the table header */
-    overflow-y: auto;
-  }
-  
+table {
+    margin-top: 5%;
+	border-collapse: collapse;
+	width: 1000px;
+	table-layout: fixed;
+    text-align: center;
 
+}
+td,th {
+	padding: 5px;
+	min-width: 200px;
+	border-right: 1px solid #ccc;
+    text-align : canter;
+
+}
+thead tr {
+	background: #888;
+	color: #eee;
+	display: block;
+	position: relative;
+}
+tbody {
+	display: block;
+	height: 200px;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+tbody tr:nth-child(even) {
+	background: #ddd;
+}
 
 #popup-navs {
     position: absolute;
@@ -70,8 +79,22 @@
     overflow-y: scroll;
     transform: translate(-50%, -50%);
     padding: 20px;
-    /* display: none; */
-    /* Additional styles for the pop-up section */
+
+}
+.popUp-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+.popUp-footer .right{
+    background-color: black;
+    width: 40%;
+}
+.popUp-footer .left{
+    background-color: white;
+    width: 40%;
+
 }
 
 .active {
@@ -87,47 +110,14 @@
     padding: 0;
 }
 
-/* .table-wrap {
-    max-width: 800px;
-    margin: 80px auto;
-    overflow-x: auto;
-}
-
-table,
-td,
-th {
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-
-}
-
-th,
-td {
-    padding: 15px;
-    white-space: nowrap;
-    text-align: center;
-}
-
-table tbody tr:nth-child(odd) {
-    background: rgb(226, 226, 226);
-} */
 
 .box-wrap {
     padding: 0px 16px;
 }
 
-/*# sourceMappingURL=main.css.map */
 .column_name {
     font-weight: bold;
     font-size: 20px;
     cursor: pointer;
 }
 
-/* .sortIcon {
-    color = blue;
-    /* color: linear-gradient(to top, green, red); */
