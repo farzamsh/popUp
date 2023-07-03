@@ -8,6 +8,8 @@ const address_table = document.getElementById("address");
 const phone_table = document.getElementById("phone");
 const name_table = document.getElementById("name");
 const srno_table = document.getElementById("srno");
+const minimizePopup = document.getElementById("minimizePopup");
+
 
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
@@ -20,11 +22,18 @@ closeButton.addEventListener("click", function () {
 });
 
 minimizeButton.addEventListener("click", function () {
-  // Perform minimize functionality
+  popupSection.classList.add("hidden");
+  minimizePopup.classList.remove("hidden");
+});
+
+minimizePopup.addEventListener("click", function () {
+  popupSection.classList.toggle("hidden");
+  minimizePopup.classList.add("hidden");
 });
 
 maximizeButton.addEventListener("click", function () {
-  // Perform maximize functionality
+  popupSection.classList.toggle("max-icon1");
+  popupSection.classList.toggle("max-icon2");
 });
 
 function sortTable(n, type) {

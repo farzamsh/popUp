@@ -74,13 +74,21 @@ tbody tr:nth-child(even) {
     position: absolute;
     top: 50vh;
     left: 50%;
-    height: 80vh;
-    width: 80vw;
+    /* height: 80vh;
+    width: 80vw; */
     overflow-y: scroll;
     transform: translate(-50%, -50%);
     padding: 20px;
-
 }
+.max-icon2 {
+    width: 100vw;
+    height: 100vh;
+}
+.max-icon1 {
+    width: 80vw;
+    height: 80vh;
+}
+
 .popUp-footer{
     display: flex;
     justify-content: space-between;
@@ -96,6 +104,19 @@ tbody tr:nth-child(even) {
     width: 40%;
 
 }
+
+#minimizePopup {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+ }
 
 .active {
     display: block;
