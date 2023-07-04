@@ -15,15 +15,16 @@ const tds = document.querySelectorAll("td");
 const contentCounter = document.getElementById("contentCounter");
 const tableSize = document.getElementById("tableSize");
 const tBody = document.getElementById("tableBody");
+const columnName = document.getElementById("columnName");
 
 // imort from backend:
 let totalPages = 4523;
 let totalRows = 86524;
 
-
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
   contentCounter.innerHTML = `${totalPages} ردیف در ${totalRows} صفحه.`;
+  loadTable(tableSize.value);
   button.classList.add("hidden");
 });
 
@@ -42,20 +43,13 @@ minimizePopup.addEventListener("click", function () {
   minimizePopup.classList.add("hidden");
 });
 
-
-tableSize.addEventListener("change", function () {
-  console.log(tableSize.value);
-  });
-
-
 maximizeButton.addEventListener("click", function () {
-
   popupSection.classList.toggle("max-icon1");
   popupSection.classList.toggle("max-icon2");
-  
+
   cTable.classList.toggle("tab-size1");
   cTable.classList.toggle("tab-size2");
-  
+
   ths.forEach((th) => {
     th.classList.toggle("th-td-size1");
     th.classList.toggle("th-td-size2");
@@ -67,29 +61,42 @@ maximizeButton.addEventListener("click", function () {
   });
 });
 
-
+tableSize.addEventListener("change", function () {
+  console.log(tableSize.value);
+  loadTable(tableSize.value);
+});
 
 function loadTable(size) {
   // Fetch data from the backend API
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json())
-    .then(data => {
-      // Generate table rows and cells dynamically
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        Object.values(item).forEach(value => {
-          const cell = document.createElement('td');
-          cell.textContent = value;
-          row.appendChild(cell);
-        });
-        tbody.appendChild(row);
-      });
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });    
-  }
-
+  fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((data) => {
+      tBody.innerHTML = "";
+      console.log(data);
+      if(size> 11){
+        
+          alert("حداکثر تعداد ردیف ها 10 می باشد")
+          size = 10;
+        }
+      for (let i = 0; i < size; i++) {
+        const row = document.createElement("tr");
+        const cell1 = document.createElement("td");
+        const cell2 = document.createElement("td");
+        const cell3 = document.createElement("td");
+        const cell4 = document.createElement("td");
+        const cell5 = document.createElement("td");
+        cell1.textContent = data[i].phone;
+        cell2.textContent = data[i].email;
+        cell3.textContent = data[i].username;
+        cell4.textContent = data[i].name;
+        cell5.textContent = data[i].id;
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        row.appendChild(cell3);
+        row.appendChild(cell4);
+        row.appendChild(cell5);
+        tBody.appendChild(row);
+      }})}
 
 function sortTable(n, type) {
   var table,
@@ -179,7 +186,7 @@ address_table.addEventListener("click", function () {
   sortTable(1, "character");
 });
 phone_table.addEventListener("click", function () {
-  sortTable(2, "numeric");
+  sortTable(2, "character");
 });
 name_table.addEventListener("click", function () {
   sortTable(3, "character");
