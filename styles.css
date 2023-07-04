@@ -6,39 +6,60 @@
 }
 
 .container {
-    max-height: 300px; /* Adjust the height as needed */
+    max-height: 300px;
+    /* Adjust the height as needed */
     overflow-y: auto;
-  }
+}
+
 table {
     margin-top: 5%;
-	border-collapse: collapse;
-	width: 1000px;
-	table-layout: fixed;
+    border-collapse: collapse;
+    /* width: 1000px; */
+    table-layout: fixed;
     text-align: center;
-
 }
-td,th {
-	padding: 5px;
-	min-width: 200px;
-	border-right: 1px solid #ccc;
-    text-align : canter;
-
+td,
+th {
+    padding: 5px;
+    min-width: 200px;
+    border-right: 1px solid #ccc;
 }
+
+.tab-size1 {
+    width: 1000px;
+}
+
+.tab-size2 {
+    width: 1250px;
+}
+
+.th-td-size1 {
+    width: 200px;
+}
+
+.th-td-size2 {
+    width: 250px;
+}
+
+
+
 thead tr {
-	background: #888;
-	color: #eee;
-	display: block;
-	position: relative;
+    background: #888;
+    color: #eee;
+    display: block;
+    position: relative;
 }
+
 tbody {
-	display: block;
-	height: 200px;
-	width: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
+    display: block;
+    height: 200px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
 tbody tr:nth-child(even) {
-	background: #ddd;
+    background: #ddd;
 }
 
 #popup-navs {
@@ -80,43 +101,49 @@ tbody tr:nth-child(even) {
     transform: translate(-50%, -50%);
     padding: 20px;
 }
+
 .max-icon2 {
     width: 100vw;
     height: 100vh;
 }
+
 .max-icon1 {
     width: 80vw;
     height: 80vh;
 }
 
-.popUp-footer{
+.popUp-footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     padding: 0 20px;
 }
-.popUp-footer .right{
-    background-color: black;
-    width: 40%;
-}
-.popUp-footer .left{
+.popUp-footer .left {
     background-color: white;
     width: 40%;
-
+    padding: 5px 10px;
 }
+
+.popUp-footer .right {
+    background-color: black;
+    width: 40%;
+    padding: 5px 10px;
+}
+
 
 #minimizePopup {
     width: 50px;
     height: 50px;
+    border-radius: 15px;
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 5px;
     background-color: red;
     color: white;
     padding: 10px;
     border: none;
     cursor: pointer;
- }
+}
 
 .active {
     display: block;
@@ -124,11 +151,6 @@ tbody tr:nth-child(even) {
 
 .hidden {
     display: none;
-}
-
-* {
-    margin: 0;
-    padding: 0;
 }
 
 
@@ -142,3 +164,17 @@ tbody tr:nth-child(even) {
     cursor: pointer;
 }
 
+#close-button{
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#minimize-button{
+    cursor: pointer;
+    font-size: 12px;
+}
+
+#maximize-button{
+    cursor: pointer;
+    font-size: 12px;
+}

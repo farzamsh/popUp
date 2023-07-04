@@ -9,7 +9,9 @@ const phone_table = document.getElementById("phone");
 const name_table = document.getElementById("name");
 const srno_table = document.getElementById("srno");
 const minimizePopup = document.getElementById("minimizePopup");
-
+const cTable = document.getElementById("my_table");
+const ths = document.querySelectorAll("th");
+const tds = document.querySelectorAll("td");
 
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
@@ -34,6 +36,16 @@ minimizePopup.addEventListener("click", function () {
 maximizeButton.addEventListener("click", function () {
   popupSection.classList.toggle("max-icon1");
   popupSection.classList.toggle("max-icon2");
+  cTable.classList.toggle("tab-size1");
+  cTable.classList.toggle("tab-size2");
+  ths.forEach((th) => {
+    th.classList.toggle("th-td-size1");
+    th.classList.toggle("th-td-size2");
+  });
+  tds.forEach((td) => {
+    td.classList.toggle("th-td-size1");
+    td.classList.toggle("th-td-size2");
+  });
 });
 
 function sortTable(n, type) {
@@ -75,12 +87,12 @@ function sortTable(n, type) {
       x = rows[i].getElementsByTagName("TD")[n];
       y = rows[i + 1].getElementsByTagName("TD")[n];
       if (type == "numeric") {
-      var xValue = parseFloat(x.innerHTML);
-      var yValue = parseFloat(y.innerHTML);
-        } else {
-        var xValue = (x.innerHTML).toLowerCase();
-        var yValue = (y.innerHTML).toLowerCase();
-        }
+        var xValue = parseFloat(x.innerHTML);
+        var yValue = parseFloat(y.innerHTML);
+      } else {
+        var xValue = x.innerHTML.toLowerCase();
+        var yValue = y.innerHTML.toLowerCase();
+      }
 
       /*check if the two rows should switch place,
         based on the direction, asc or desc:*/
@@ -124,11 +136,11 @@ address_table.addEventListener("click", function () {
   sortTable(1, "character");
 });
 phone_table.addEventListener("click", function () {
-  sortTable(2 , "numeric");
+  sortTable(2, "numeric");
 });
 name_table.addEventListener("click", function () {
-  sortTable(3 , "character");
+  sortTable(3, "character");
 });
 srno_table.addEventListener("click", function () {
-  sortTable(4 , "numeric");
+  sortTable(4, "numeric");
 });
