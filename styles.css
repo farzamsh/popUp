@@ -18,12 +18,19 @@ table {
     table-layout: fixed;
     text-align: center;
 }
+
 td,
 th {
-    padding: 5px;
+    padding: 10px;
     min-width: 200px;
     border-right: 1px solid #ccc;
+
 }
+.my-table td:hover,
+.my-table th:hover {
+  background-color: #ddd;
+}
+
 
 .tab-size1 {
     width: 1000px;
@@ -113,19 +120,26 @@ tbody tr:nth-child(even) {
 }
 
 .popUp-footer {
+    margin-top: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding: 0 20px;
 }
+
 .popUp-footer .left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: white;
     width: 40%;
     padding: 5px 10px;
 }
 
 .popUp-footer .right {
-    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    /* background-color: aqua; */
     width: 40%;
     padding: 5px 10px;
 }
@@ -143,6 +157,17 @@ tbody tr:nth-child(even) {
     padding: 10px;
     border: none;
     cursor: pointer;
+}
+
+.row-page-counter {
+    direction: rtl;
+}
+
+.table-cap {
+    padding: 3px;
+    font-size: 14px;
+    text-align: center;
+    
 }
 
 .active {
@@ -164,17 +189,100 @@ tbody tr:nth-child(even) {
     cursor: pointer;
 }
 
-#close-button{
+#close-button {
     cursor: pointer;
     font-size: 12px;
 }
 
-#minimize-button{
+#minimize-button {
     cursor: pointer;
     font-size: 12px;
 }
 
-#maximize-button{
+#maximize-button {
     cursor: pointer;
     font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+ul,
+li {
+    list-style: none;
+}
+
+ul {
+    display: inline-block;
+    width: 100%
+}
+
+li {
+    display: inline-block;
+    width: 25%;
+    margin-bottom: 10px;
+}
+
+.page-num-container,
+.button,
+.links,
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-num-container {
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    column-gap: 12px;
+    background: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+    border: none;
+}
+
+.button :disabled {
+    color: #b3b3b3;
+    pointer-events: none;
+}
+
+.button,
+.link {
+    height: 45px;
+    width: 45px;
+    font-size: 16px;
+    color: #666666;
+    /* background-color: #f2f2f2; */
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button,
+.link :hover {
+    color: white;
+    background: blue;
+}
+
+.button, .link :active {
+    color: white;
+    background: blue;
+}
+
+.links {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    column-gap: 12px;
+    /* direction: rtl; */
+}
+#haha :hover {
+    color: blue;
+    background-color: black;
 }
