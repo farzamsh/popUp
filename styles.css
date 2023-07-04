@@ -4,7 +4,22 @@
     box-sizing: border-box;
     transition: all 0.3s ease-in-out;
 }
+/* const */
+/* how to use const in css */
+ @property --bg {
+    syntax: '<color>';
+    initial-value: #3f72ff;
+    inherits: false;
+ }
+ @property --bg2 {
+    syntax: '<color>';
+    initial-value: #ffd20ba9;
+    inherits: false;
+ }
 
+body{
+    background-color: var(--bg2);
+}
 .container {
     max-height: 300px;
     /* Adjust the height as needed */
@@ -22,7 +37,7 @@ table {
 td,
 th {
     padding: 10px;
-    min-width: 200px;
+    /* min-width: 200px; */
     border-right: 1px solid #ccc;
 
 }
@@ -68,6 +83,9 @@ tbody {
 tbody tr:nth-child(even) {
     background: #ddd;
 }
+tbody tr:nth-child(even):hover {
+    background: var(--bg);
+}
 
 #popup-navs {
     position: absolute;
@@ -96,9 +114,12 @@ tbody tr:nth-child(even) {
     cursor: pointer;
     /* Style the button as desired */
 }
+#popup-button:hover {
+    background-color: rgb(0, 0, 255);
+}
 
 #popup-section {
-    background-color: pink;
+    background-color: white;
     position: absolute;
     top: 50vh;
     left: 50%;
@@ -144,7 +165,12 @@ tbody tr:nth-child(even) {
     padding: 5px 10px;
 }
 
+tbody tr:hover {
+    background: var(--bg);
+    color: #000;
+    /* display: block; */
 
+}
 #minimizePopup {
     width: 50px;
     height: 50px;
@@ -165,8 +191,9 @@ tbody tr:nth-child(even) {
 
 .table-cap {
     padding: 3px;
-    font-size: 14px;
+    font-size: 15px;
     text-align: center;
+    border: 1px solid black;
     
 }
 
@@ -236,7 +263,7 @@ li {
 
 .page-num-container {
     width: 100%;
-    padding: 5px 10px;
+    padding: 10px 10px;
     border-radius: 8px;
     column-gap: 12px;
     background: white;

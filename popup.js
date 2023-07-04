@@ -11,7 +11,7 @@ const srno_table = document.getElementById("srno");
 const minimizePopup = document.getElementById("minimizePopup");
 const cTable = document.getElementById("my_table");
 const ths = document.querySelectorAll("th");
-const tds = document.querySelectorAll("td");
+// const tds = document.querySelectorAll("td");
 const contentCounter = document.getElementById("contentCounter");
 const tableSize = document.getElementById("tableSize");
 const tBody = document.getElementById("tableBody");
@@ -20,6 +20,11 @@ const columnName = document.getElementById("columnName");
 // imort from backend:
 let totalPages = 4523;
 let totalRows = 86524;
+
+ths.forEach((th) => {
+  th.classList.add("th-td-size1");
+});
+
 
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
@@ -62,8 +67,8 @@ maximizeButton.addEventListener("click", function () {
 });
 
 tableSize.addEventListener("change", function () {
-  console.log(tableSize.value);
   loadTable(tableSize.value);
+
 });
 
 function loadTable(size) {
@@ -72,7 +77,6 @@ function loadTable(size) {
     .then((response) => response.json())
     .then((data) => {
       tBody.innerHTML = "";
-      console.log(data);
       if(size> 11){
         
           alert("حداکثر تعداد ردیف ها 10 می باشد")
@@ -96,7 +100,17 @@ function loadTable(size) {
         row.appendChild(cell4);
         row.appendChild(cell5);
         tBody.appendChild(row);
-      }})}
+      }
+      // define a global letiable to store all tds
+      tds = document.querySelectorAll("td");
+      if(ths[0].classList.contains("th-td-size1")){
+          tds.forEach((td) => {
+            td.classList.add("th-td-size1");
+          });
+            }else{
+  tds.forEach((td) => { 
+    td.classList.add("th-td-size2");
+  });}})}
 
 function sortTable(n, type) {
   var table,
@@ -114,7 +128,6 @@ function sortTable(n, type) {
   dir = "asc";
   var sortIconAll = document.querySelectorAll(".column_name span");
   for (var i = 0; i < sortIconAll.length; i++) {
-    console.log(sortIconAll.length);
     sortIconAll[i].classList.add("hidden");
   }
   var sortIcon = document.getElementById("sortIcon" + n);
