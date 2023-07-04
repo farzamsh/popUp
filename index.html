@@ -31,7 +31,7 @@
                             <th id="srno">sr no. <span class="sortIcon" id="sortIcon4"></span></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <tr>
                             <td>active</td>
                             <td>surat</td>
@@ -108,14 +108,17 @@
             <section class="popUp-footer">
                 <div class="left">
                     <div class="table-row-num">
-                        <select class="table-cap">
+                        <!-- change the select element into input -->
+                        <input type="number" class="table-cap" id="tableSize" value="10" min="5" max="10">
+
+                        <!-- <select class="table-cap" id="tableSize">
                             <option value="10">10</option>
                             <option value="5">5</option>
-                        </select>
+                        </select> -->
 
                     </div>
                     <div class="row-page-counter">
-                        43295 ردیف در 855555 صفحه.
+                        <span id="contentCounter">43295 ردیف در 855555 صفحه.</span>
                     </div>
                 </div>
                 <div class="right">

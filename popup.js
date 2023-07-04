@@ -12,9 +12,18 @@ const minimizePopup = document.getElementById("minimizePopup");
 const cTable = document.getElementById("my_table");
 const ths = document.querySelectorAll("th");
 const tds = document.querySelectorAll("td");
+const contentCounter = document.getElementById("contentCounter");
+const tableSize = document.getElementById("tableSize");
+const tBody = document.getElementById("tableBody");
+
+// imort from backend:
+let totalPages = 4523;
+let totalRows = 86524;
+
 
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
+  contentCounter.innerHTML = `${totalPages} ردیف در ${totalRows} صفحه.`;
   button.classList.add("hidden");
 });
 
@@ -33,20 +42,54 @@ minimizePopup.addEventListener("click", function () {
   minimizePopup.classList.add("hidden");
 });
 
+
+tableSize.addEventListener("change", function () {
+  console.log(tableSize.value);
+  });
+
+
 maximizeButton.addEventListener("click", function () {
+
   popupSection.classList.toggle("max-icon1");
   popupSection.classList.toggle("max-icon2");
+  
   cTable.classList.toggle("tab-size1");
   cTable.classList.toggle("tab-size2");
+  
   ths.forEach((th) => {
     th.classList.toggle("th-td-size1");
     th.classList.toggle("th-td-size2");
   });
+
   tds.forEach((td) => {
     td.classList.toggle("th-td-size1");
     td.classList.toggle("th-td-size2");
   });
 });
+
+
+
+function loadTable(size) {
+  // Fetch data from the backend API
+  fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(data => {
+      // Generate table rows and cells dynamically
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        Object.values(item).forEach(value => {
+          const cell = document.createElement('td');
+          cell.textContent = value;
+          row.appendChild(cell);
+        });
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });    
+  }
+
 
 function sortTable(n, type) {
   var table,
