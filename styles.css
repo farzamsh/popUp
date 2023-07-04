@@ -13,7 +13,7 @@
  }
  @property --bg2 {
     syntax: '<color>';
-    initial-value: #ffd20ba9;
+    initial-value: #ffde49a9;
     inherits: false;
  }
 
@@ -99,7 +99,7 @@ tbody tr:nth-child(even):hover {
     padding: 0 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1;
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 #popup-button {
@@ -119,7 +119,7 @@ tbody tr:nth-child(even):hover {
 }
 
 #popup-section {
-    background-color: white;
+    background-color: #ff9191e8;
     position: absolute;
     top: 50vh;
     left: 50%;
