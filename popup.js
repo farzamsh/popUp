@@ -23,11 +23,13 @@ const columnName = document.getElementById("columnName");
 
 const tablePages = document.querySelector(".links");
 const spanLinks = tablePages.querySelectorAll("span");
+const inpSelectPageNumber = document.getElementById("inpSelectPageNumber");
+const searchButton = document.getElementById("searchButton");
 let isLoaded = false;
 // initial basic variables:
 // import from backend:
 let totalPages = 200;
-let totalRows = 400;
+let totalRows = 2000;
 let selectedPage = 1;
 let pC = 7;
 let fullyLoadedData = "";
@@ -78,6 +80,20 @@ maximizeButton.addEventListener("click", function () {
     td.classList.toggle("th-td-size1");
     td.classList.toggle("th-td-size2");
   });
+});
+
+searchButton.addEventListener("click", function () {
+  console.log(inpSelectPageNumber.value);
+  let searchValue = inpSelectPageNumber.value;
+  if (searchValue == "") {
+    alert("لطفا مقداری را وارد کنید");
+  } else if (searchValue > totalPages) {
+    alert("صفحه مورد نظر شما وجود ندارد");
+  } else {
+    selectedPage = searchValue;
+    loadTable2(tableSize.value, searchValue - 1);
+    setPageNumbers(pC);
+  }
 });
 
 tableSize.addEventListener("change", function () {
@@ -227,21 +243,20 @@ function sortTable(n, type) {
 }
 
 function loadTable2(size, floor) {
-  if(isLoaded == false){
+  if (isLoaded == false) {
     isLoaded = true;
-  // Fetch data from the backend API
-  fetch("https://jsonplaceholder.typicode.com/photos")
-    .then((response) => response.json())
-    .then((data) => {
-      fullyLoadedData = data;
-      prepareTable(data, size, floor);
-});
-  }else{
+    // Fetch data from the backend API
+    fetch("https://jsonplaceholder.typicode.com/photos")
+      .then((response) => response.json())
+      .then((data) => {
+        fullyLoadedData = data;
+        prepareTable(data, size, floor);
+      });
+  } else {
     prepareTable(fullyLoadedData, size, floor);
   }
 }
 function prepareTable(data, size, floor) {
-  
   if (size > 20) {
     alert("حداکثر تعداد ردیف ها 15 می باشد");
     size = 20;
@@ -276,7 +291,8 @@ function prepareTable(data, size, floor) {
     tds.forEach((td) => {
       td.classList.add("th-td-size2");
     });
-  }}
+  }
+}
 
 function setPageNumbers(pC) {
   if (isNaN(selectedPage)) {
@@ -315,7 +331,7 @@ function setPageNumbers(pC) {
           tablePages.appendChild(span);
         }
       }
-    } else if (selectedPage < totalPages - middle+1) {
+    } else if (selectedPage < totalPages - middle + 1) {
       for (let i = 1; i < pC + 1; i++) {
         if (i == 1) {
           const span = document.createElement("span");
@@ -338,6 +354,7 @@ function setPageNumbers(pC) {
           span.innerText = selectedPage - 4 + i;
           tablePages.appendChild(span);
         }
+
       }
     } else {
       for (let i = 1; i < pC + 1; i++) {
@@ -369,6 +386,9 @@ function setPageNumbers(pC) {
   }
   const spanLinks = tablePages.querySelectorAll("span");
   spanLinks.forEach((pgNum) => {
+    if(pgNum.innerText == selectedPage){
+      pgNum.classList.add("activated-page");
+    }
     pgNum.addEventListener("click", function () {
       if (!isNaN(pgNum.textContent)) {
         selectedPage = Number(pgNum.textContent);
