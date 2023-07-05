@@ -23,36 +23,30 @@ const columnName = document.getElementById("columnName");
 
 const tablePages = document.querySelector(".links");
 const spanLinks = tablePages.querySelectorAll("span");
+let isLoaded = false;
 // initial basic variables:
 // import from backend:
-let totalPages = 4523;
-let totalRows = 86524;
+let totalPages = 200;
+let totalRows = 400;
 let selectedPage = 1;
+let pC = 7;
+let fullyLoadedData = "";
 
 // assign table head css class:
 ths.forEach((th) => {
   th.classList.add("th-td-size1");
 });
 
-// 12 addEventListeners:
+// 13 addEventListeners:
 
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
   contentCounter.innerHTML = `${totalRows} ردیف در ${totalPages} صفحه.`;
   loadTable2(tableSize.value, selectedPage - 1);
   button.classList.add("hidden");
-  tablePages.lastElementChild.textContent = `${totalPages} `;
   setPageNumbers(7);
 });
 
-spanLinks.forEach((pgNum) => {
-  pgNum.addEventListener("click", function () {
-    if (selectedPage != pgNum.textContent) {
-      selectedPage = Number(pgNum.textContent);
-      loadTable2(tableSize.value, selectedPage - 1);
-    }
-  });
-});
 closeButton.addEventListener("click", function () {
   popupSection.classList.add("hidden");
   button.classList.remove("hidden");
@@ -233,52 +227,74 @@ function sortTable(n, type) {
 }
 
 function loadTable2(size, floor) {
+  if(isLoaded == false){
+    isLoaded = true;
   // Fetch data from the backend API
   fetch("https://jsonplaceholder.typicode.com/photos")
     .then((response) => response.json())
     .then((data) => {
-      tBody.innerHTML = "";
-      if (size > 20) {
-        alert("حداکثر تعداد ردیف ها 15 می باشد");
-        size = 20;
-      }
-      tBody.innerHTML = "";
-      for (let i = floor * size; i < (floor + 1) * size; i++) {
-        const row = document.createElement("tr");
-        const cell1 = document.createElement("td");
-        const cell2 = document.createElement("td");
-        const cell3 = document.createElement("td");
-        const cell4 = document.createElement("td");
-        const cell5 = document.createElement("td");
-        cell1.textContent = (i % 2 == 0 ? "active" : "inactive") + " " + i;
-        cell2.textContent = data[i].url.slice(0, 20) + i;
-        cell3.textContent = data[i].title.slice(0, 20) + i;
-        cell4.textContent = data[i].thumbnailUrl.slice(0, 20) + i;
-        cell5.textContent = data[i].id;
-        row.appendChild(cell1);
-        row.appendChild(cell2);
-        row.appendChild(cell3);
-        row.appendChild(cell4);
-        row.appendChild(cell5);
-        tBody.appendChild(row);
-      }
-      // define a global letiable to store all tds
-      tds = document.querySelectorAll("td");
-      if (ths[0].classList.contains("th-td-size1")) {
-        tds.forEach((td) => {
-          td.classList.add("th-td-size1");
-        });
-      } else {
-        tds.forEach((td) => {
-          td.classList.add("th-td-size2");
-        });
-      }
-    });
+      fullyLoadedData = data;
+      prepareTable(data, size, floor);
+});
+  }else{
+    prepareTable(fullyLoadedData, size, floor);
+  }
 }
+function prepareTable(data, size, floor) {
+  
+  if (size > 20) {
+    alert("حداکثر تعداد ردیف ها 15 می باشد");
+    size = 20;
+  }
+  tBody.innerHTML = "";
+  for (let i = floor * size; i < (floor + 1) * size; i++) {
+    const row = document.createElement("tr");
+    const cell1 = document.createElement("td");
+    const cell2 = document.createElement("td");
+    const cell3 = document.createElement("td");
+    const cell4 = document.createElement("td");
+    const cell5 = document.createElement("td");
+    cell1.textContent = (i % 2 == 0 ? "active" : "inactive") + " " + i;
+    cell2.textContent = data[i].url.slice(0, 20) + i;
+    cell3.textContent = data[i].title.slice(0, 20) + i;
+    cell4.textContent = data[i].thumbnailUrl.slice(0, 20) + i;
+    cell5.textContent = data[i].id;
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+    row.appendChild(cell4);
+    row.appendChild(cell5);
+    tBody.appendChild(row);
+  }
+  // define a global letiable to store all tds
+  tds = document.querySelectorAll("td");
+  if (ths[0].classList.contains("th-td-size1")) {
+    tds.forEach((td) => {
+      td.classList.add("th-td-size1");
+    });
+  } else {
+    tds.forEach((td) => {
+      td.classList.add("th-td-size2");
+    });
+  }}
+
 function setPageNumbers(pC) {
+  if (isNaN(selectedPage)) {
+    return;
+  }
+
   //page Counter (pc) is the nunber of desired pages that are shown in under the table, the proper num is 7.
   // let varJ = Number(startPageNum(selectedPage));
-  let middle = min(totalPages, pC) / 2 + 1;
+  // pC has to be odd and more than 5
+  // check if pC is odd
+  if (pC % 2 == 0) {
+    pC++;
+  }
+  if (pC < 5) {
+    pC = 5;
+  }
+  let middle = Math.floor(Math.min(totalPages, pC) / 2) + 1;
+  tablePages.innerHTML = "";
   if (totalPages > pC) {
     if (selectedPage < middle) {
       for (let i = 1; i < pC + 1; i++) {
@@ -286,59 +302,79 @@ function setPageNumbers(pC) {
           const span = document.createElement("span");
           span.className = "link";
           span.innerText = i;
+          tablePages.appendChild(span);
         } else if (i == middle + 2) {
           const span = document.createElement("span");
           span.className = "link";
           span.innerText = ". . .";
+          tablePages.appendChild(span);
         } else {
           const span = document.createElement("span");
           span.className = "link";
           span.innerText = totalPages;
+          tablePages.appendChild(span);
         }
       }
-    } else if (selectedPage < totalPages - middle) {
-      
+    } else if (selectedPage < totalPages - middle+1) {
+      for (let i = 1; i < pC + 1; i++) {
+        if (i == 1) {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = 1;
+          tablePages.appendChild(span);
+        } else if (i == 2 || i == pC - 1) {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = ". . .";
+          tablePages.appendChild(span);
+        } else if (i == pC) {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = totalPages;
+          tablePages.appendChild(span);
+        } else {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = selectedPage - 4 + i;
+          tablePages.appendChild(span);
+        }
+      }
     } else {
+      for (let i = 1; i < pC + 1; i++) {
+        if (i == 1) {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = 1;
+          tablePages.appendChild(span);
+        } else if (i == 2) {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = ". . .";
+          tablePages.appendChild(span);
+        } else {
+          const span = document.createElement("span");
+          span.className = "link";
+          span.innerText = totalPages - pC + i;
+          tablePages.appendChild(span);
+        }
+      }
     }
   } else {
-    //   for (let i = 0; i < totalPages; i++)
-    //   {
-    //   const span = document.createElement("span");
-    //   span.className = "link";
-    //   span.innerText = i+1;
-    //   }
-    // }
+    for (let i = 1; i < pC + 1; i++) {
+      const span = document.createElement("span");
+      span.className = "link";
+      span.innerText = i;
+      tablePages.appendChild(span);
+    }
   }
-
-  //   for (let i = 0; i < 7; i++) {
-  //     if(i<3){
-  //     const span = document.createElement("span");
-  //     span.className = "link";
-  //     span.innerText = varJ+i;
-  //     }
-  //     else if(i==4){
-  //       const span = document.createElement("span");
-  //       span.className = "link";
-  //       span.innerText = ". . .";
-  //     }
-  //     else{
-  //       const span = document.createElement("span");
-  //       span.className = "link";
-  //       span.innerText = ;
-  //     }
-  //   }
-  // }
-  // function startPageNum(selectedPage,pc) {
-  // //
-  // //page Counter (pc) is the nunber of desired pages that are shown in under the table, the proper num is 7.
-  //   middle =   let middle = min(totalPages,pc)/2+1
-
-  //   if (selectedPage < middle) {
-  //     return 1;
-  //   } else if( selectedPage > totalPages -3 ){
-  //     return totalPages - (middle+1);
-  //   }
-  //    else{
-  //     return selectedPage - 1;
-  //   }
+  const spanLinks = tablePages.querySelectorAll("span");
+  spanLinks.forEach((pgNum) => {
+    pgNum.addEventListener("click", function () {
+      if (!isNaN(pgNum.textContent)) {
+        selectedPage = Number(pgNum.textContent);
+        setPageNumbers(pC);
+        loadTable2(tableSize.value, selectedPage - 1);
+      }
+    });
+  });
 }
