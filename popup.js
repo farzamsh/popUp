@@ -44,7 +44,7 @@ ths.forEach((th) => {
 button.addEventListener("click", function () {
   popupSection.classList.toggle("hidden");
   contentCounter.innerHTML = `${totalRows} ردیف در ${totalPages} صفحه.`;
-  loadTable2(tableSize.value, selectedPage - 1);
+  loadTable(tableSize.value, selectedPage - 1);
   button.classList.add("hidden");
   setPageNumbers(7);
 });
@@ -91,13 +91,13 @@ searchButton.addEventListener("click", function () {
     alert("صفحه مورد نظر شما وجود ندارد");
   } else {
     selectedPage = searchValue;
-    loadTable2(tableSize.value, searchValue - 1);
+    loadTable(tableSize.value, searchValue - 1);
     setPageNumbers(pC);
   }
 });
 
 tableSize.addEventListener("change", function () {
-  loadTable2(tableSize.value, selectedPage - 1);
+  loadTable(tableSize.value, selectedPage - 1);
 });
 
 status_table.addEventListener("click", function () {
@@ -116,49 +116,7 @@ srno_table.addEventListener("click", function () {
   sortTable(5, "numeric");
 });
 
-// 3 functions:
-function loadTable(size) {
-  // Fetch data from the backend API
-  fetch("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.json())
-    .then((data) => {
-      tBody.innerHTML = "";
-      if (size > 11) {
-        alert("حداکثر تعداد ردیف ها 10 می باشد");
-        size = 10;
-      }
-      for (let i = 0; i < size; i++) {
-        const row = document.createElement("tr");
-        const cell1 = document.createElement("td");
-        const cell2 = document.createElement("td");
-        const cell3 = document.createElement("td");
-        const cell4 = document.createElement("td");
-        const cell5 = document.createElement("td");
-        cell1.textContent = data[i].phone;
-        cell2.textContent = data[i].email;
-        cell3.textContent = data[i].username;
-        cell4.textContent = data[i].name;
-        cell5.textContent = data[i].id;
-        row.appendChild(cell1);
-        row.appendChild(cell2);
-        row.appendChild(cell3);
-        row.appendChild(cell4);
-        row.appendChild(cell5);
-        tBody.appendChild(row);
-      }
-      // define a global letiable to store all tds
-      tds = document.querySelectorAll("td");
-      if (ths[0].classList.contains("th-td-size1")) {
-        tds.forEach((td) => {
-          td.classList.add("th-td-size1");
-        });
-      } else {
-        tds.forEach((td) => {
-          td.classList.add("th-td-size2");
-        });
-      }
-    });
-}
+// 4 functions:
 
 function sortTable(n, type) {
   var table,
@@ -242,7 +200,7 @@ function sortTable(n, type) {
   sortIcon.style.color = dir === "asc" ? "green" : "red";
 }
 
-function loadTable2(size, floor) {
+function loadTable(size, floor) {
   if (isLoaded == false) {
     isLoaded = true;
     // Fetch data from the backend API
@@ -258,7 +216,7 @@ function loadTable2(size, floor) {
 }
 function prepareTable(data, size, floor) {
   if (size > 20) {
-    alert("حداکثر تعداد ردیف ها 15 می باشد");
+    alert("حداکثر تعداد ردیف ها 20 می باشد");
     size = 20;
   }
   tBody.innerHTML = "";
@@ -393,7 +351,7 @@ function setPageNumbers(pC) {
       if (!isNaN(pgNum.textContent)) {
         selectedPage = Number(pgNum.textContent);
         setPageNumbers(pC);
-        loadTable2(tableSize.value, selectedPage - 1);
+        loadTable(tableSize.value, selectedPage - 1);
       }
     });
   });
